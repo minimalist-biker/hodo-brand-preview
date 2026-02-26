@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hodo — Contact Detail Desktop (The Brief + Progress Ring)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            --surface: #F0EEEB;
+            --surface-hover: #E8E5E1;
+            --ink: #27221F;
+            --secondary: #6E5F57;
+            --tertiary: #9A8E86;
+            --accent: #4D8FAC;
+            --success: #4A7C59;
+            --success-light: rgba(74, 124, 89, 0.1);
+            --warning: #D4A574;
+            --warning-light: rgba(212, 165, 116, 0.15);
+            --error: #C45D4E;
+            --divider: #E2DFDB;
+            --white: #FFFFFF;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --pending-bg: #F5F3F0;
+            --pending-border: #D8D4CF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lexend Deca', sans-serif;
+            background: #E8E5E1;
+            color: var(--ink);
+            padding: 32px;
+        }
+
+        h1.page-title {
+            text-align: center;
+            font-weight: 300;
+            font-size: 24px;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        p.page-subtitle {
+            text-align: center;
+            font-weight: 300;
+            font-size: 13px;
+            color: var(--secondary);
+            margin-bottom: 32px;
+        }
+
+        /* ===== APP FRAME ===== */
+        .app-frame {
+            width: 1440px;
+            height: 900px;
+            margin: 0 auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            display: flex;
+            background: var(--bg);
+        }
+
+        /* Nav rail */
+        .nav-rail {
+            width: 56px;
+            background: var(--ink);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .nav-item {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+        }
+        .nav-item:hover { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); }
+        .nav-item.active { color: white; background: rgba(255,255,255,0.1); }
+        .nav-item svg { width: 20px; height: 20px; }
+
+        /* Chat pane */
+        .chat-pane {
+            width: 360px;
+            border-right: 1px solid var(--divider);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            background: var(--bg);
+        }
+        .chat-header {
+            padding: 18px 20px 16px;
+            border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: flex-end;
+        }
+        .chat-header-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 16px 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+        .chat-msg.user {
+            background: var(--accent);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+        }
+        .chat-msg.frank {
+            background: var(--surface);
+            color: var(--ink);
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 400;
+            font-size: 13.5px;
+        }
+        .chat-msg.frank .frank-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 10px;
+            font-weight: 400;
+            color: var(--tertiary);
+            margin-bottom: 4px;
+        }
+        .chat-input-area {
+            padding: 12px 16px;
+            border-top: 1px solid var(--divider);
+        }
+        .chat-input {
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--divider);
+            background: var(--white);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--tertiary);
+            outline: none;
+        }
+
+        /* Primary pane (contact list) */
+        .primary-pane {
+            width: 320px;
+            border-right: 1px solid var(--divider);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            background: var(--bg);
+        }
+        .primary-header {
+            padding: 20px 20px 16px;
+            border-bottom: 1px solid var(--divider);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+        .primary-header-title {
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .primary-header-count {
+            font-size: 11px;
+            color: var(--tertiary);
+        }
+        .primary-search {
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--divider);
+        }
+        .primary-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--divider);
+            background: var(--white);
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--tertiary);
+            outline: none;
+        }
+        .contact-list {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .contact-item {
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--divider);
+            cursor: pointer;
+        }
+        .contact-item:hover { background: var(--surface); }
+        .contact-item.active { background: var(--surface); border-left: 3px solid var(--accent); padding-left: 17px; }
+        .contact-name { font-size: 13px; font-weight: 500; }
+        .contact-snippet {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--tertiary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-top: 1px;
+        }
+        .contact-meta {
+            font-size: 10px;
+            color: var(--tertiary);
+            flex-shrink: 0;
+        }
+
+        /* Secondary pane (contact detail) */
+        .secondary-pane {
+            flex: 1;
+            background: var(--bg);
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+        .secondary-pane::-webkit-scrollbar { display: none; }
+
+        /* ===== THE BRIEF - Desktop layout ===== */
+
+        .detail-header {
+            padding: 32px 32px 20px;
+            text-align: center;
+        }
+        .detail-name {
+            font-size: 26px;
+            font-weight: 400;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .detail-subtitle {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--secondary);
+            line-height: 1.5;
+        }
+        .detail-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 14px;
+            justify-content: center;
+        }
+        .detail-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            border-radius: 20px;
+            background: var(--surface);
+            font-size: 12px;
+            font-weight: 400;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+        .detail-btn:hover { background: var(--surface-hover); }
+        .detail-btn svg { width: 14px; height: 14px; }
+
+        /* Brief narrative */
+        .brief-narrative {
+            padding: 0 32px 4px;
+        }
+        .brief-narrative p {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: var(--ink);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+        .brief-narrative strong { font-weight: 500; }
+        .brief-narrative .link { color: var(--accent); cursor: pointer; }
+
+        .brief-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            padding: 12px 32px 0;
+            justify-content: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 400;
+        }
+        .badge-accent { background: rgba(77,143,172,0.12); color: var(--accent); }
+        .badge-success { background: var(--success-light); color: var(--success); }
+        .badge-warm { background: var(--warning-light); color: #A07040; }
+        .badge-subtle { background: var(--surface); color: var(--secondary); }
+        .badge-imminent { background: rgba(196,93,78,0.12); color: var(--error); }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--tertiary);
+            padding: 0 32px;
+            margin-top: 28px;
+            margin-bottom: 10px;
+        }
+
+        /* ===== PLAN CARD WITH PROGRESS RING ===== */
+
+        .plan-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            margin: 0 24px;
+            padding: 20px 24px;
+        }
+        .plan-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+        .plan-body { flex: 1; }
+        .plan-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        .plan-badges {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .plan-desc {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--secondary);
+            line-height: 1.6;
+            max-width: 480px;
+        }
+
+        /* Progress ring */
+        .progress-ring {
+            width: 56px;
+            height: 56px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .progress-ring svg {
+            width: 56px;
+            height: 56px;
+            transform: rotate(-90deg);
+        }
+        .ring-bg {
+            fill: none;
+            stroke: var(--surface);
+            stroke-width: 3;
+        }
+        .ring-fill {
+            fill: none;
+            stroke: var(--success);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 144.51; /* 2π × 23 */
+            stroke-dashoffset: 24.08; /* 144.51 × (1 - 5/6) */
+        }
+        .ring-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--success);
+        }
+
+        /* Journey steps */
+        .journey-steps {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--divider);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 24px;
+        }
+        .journey-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 6px 0;
+        }
+        .step-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .step-icon.done { background: var(--success-light); color: var(--success); }
+        .step-icon.done svg { width: 12px; height: 12px; }
+        .step-icon.pending { border: 1.5px solid var(--pending-border); background: var(--pending-bg); }
+        .step-label { font-size: 12px; font-weight: 400; line-height: 1.4; }
+        .step-label.done { color: var(--ink); }
+        .step-label.pending { color: var(--tertiary); }
+        .step-detail {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--tertiary);
+            margin-top: 1px;
+        }
+
+        /* Clear / Fuzzy chips */
+        .clarity-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--divider);
+            display: flex;
+            gap: 32px;
+        }
+        .clarity-group { flex: 1; }
+        .clarity-label {
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .clarity-label.clear { color: var(--success); }
+        .clarity-label.fuzzy { color: #A07040; }
+        .clarity-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .chip-clear {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 400;
+            background: var(--success-light);
+            color: var(--success);
+            border: 1px solid rgba(74,124,89,0.2);
+        }
+        .chip-fuzzy {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 400;
+            background: var(--warning-light);
+            color: #A07040;
+            border: 1px solid rgba(212,165,116,0.3);
+        }
+
+        /* ===== TWO COLUMN BELOW PLAN ===== */
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 0 24px;
+        }
+        .col-card {
+            background: var(--white);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+        }
+        .col-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--tertiary);
+            margin-bottom: 10px;
+        }
+
+        /* Action items */
+        .action-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        .action-item + .action-item { border-top: 1px solid var(--divider); }
+        .action-circle {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid var(--divider);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        .action-text { font-size: 13px; font-weight: 400; line-height: 1.4; }
+        .action-meta { font-size: 11px; color: var(--tertiary); margin-top: 1px; }
+
+        /* History items */
+        .history-item {
+            display: flex;
+            gap: 12px;
+            padding: 8px 0;
+        }
+        .history-item + .history-item { border-top: 1px solid var(--divider); }
+        .history-date { width: 38px; flex-shrink: 0; text-align: right; }
+        .history-date .day { font-size: 15px; font-weight: 500; line-height: 1; }
+        .history-date .month { font-size: 10px; color: var(--tertiary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .history-body { flex: 1; }
+        .history-type { font-size: 10px; color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .history-summary { font-size: 12px; font-weight: 300; color: var(--secondary); line-height: 1.4; margin-top: 1px; }
+
+        /* Relationships row */
+        .rel-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        .rel-row + .rel-row { border-top: 1px solid var(--divider); }
+        .rel-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--secondary);
+        }
+        .rel-name { font-size: 13px; font-weight: 400; color: var(--accent); }
+        .rel-type { font-size: 11px; color: var(--tertiary); }
+
+        /* Campaign chips */
+        .campaign-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--surface);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 400;
+            margin-right: 6px;
+            margin-bottom: 4px;
+        }
+        .campaign-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* Projects row */
+        .project-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+        }
+        .project-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+        }
+        .project-icon svg { width: 14px; height: 14px; }
+        .project-name { font-size: 13px; font-weight: 400; }
+        .project-count { font-size: 11px; color: var(--tertiary); }
+
+        .bottom-spacer { height: 32px; }
+
+    </style>
+</head>
+<body>
+
+<h1 class="page-title">Contact Detail — Desktop</h1>
+<p class="page-subtitle">The Brief + Progress Ring · Using Marco O'Connell's real data</p>
+
+<div class="app-frame">
+
+    <!-- Nav Rail -->
+    <div class="nav-rail">
+        <div class="nav-logo">H</div>
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+        </div>
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="nav-item active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+    </div>
+
+    <!-- Chat Pane -->
+    <div class="chat-pane">
+        <div class="chat-header">
+            <div class="chat-header-title">Frank</div>
+        </div>
+        <div class="chat-body">
+            <div class="chat-msg frank">
+                <div class="frank-label">Frank</div>
+                Hey — just pulled up Marco O'Connell for you. Looks like the big tour is coming up Tuesday. Want me to send him a confirmation text?
+            </div>
+            <div class="chat-msg user">Yeah, remind me Monday to confirm with him. What's still fuzzy on his plan?</div>
+            <div class="chat-msg frank">
+                <div class="frank-label">Frank</div>
+                Two things still open: his specific unit preferences (he said "coolest" but hasn't narrowed it down), and whether there are other decision makers beyond him. Might be worth asking on the tour.
+            </div>
+            <div class="chat-msg user">Good call. He mentioned a girlfriend last time, I should ask if she's involved in the decision.</div>
+            <div class="chat-msg frank">
+                <div class="frank-label">Frank</div>
+                Got it. I'll note that as something to explore. Anything else before the tour?
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input class="chat-input" type="text" placeholder="Ask Frank anything..." />
+        </div>
+    </div>
+
+    <!-- Primary Pane (Contact List) -->
+    <div class="primary-pane">
+        <div class="primary-header">
+            <div class="primary-header-title">Contacts</div>
+            <div class="primary-header-count">24</div>
+        </div>
+        <div class="primary-search">
+            <input type="text" placeholder="Search contacts..." />
+        </div>
+        <div class="contact-list">
+            <div class="contact-item active">
+                <div class="contact-name">Marco O'Connell</div>
+                <div class="contact-snippet">Buy · Imminent · $1M–$1.5M</div>
+                <div class="contact-meta">Feb 25</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Larry Zonca</div>
+                <div class="contact-snippet">Business partner · Golf group</div>
+                <div class="contact-meta">Feb 24</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Jimmy Savage</div>
+                <div class="contact-snippet">Business partner · Golf group</div>
+                <div class="contact-meta">Feb 22</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Lisa O'Connell</div>
+                <div class="contact-snippet">Marco's spouse</div>
+                <div class="contact-meta">Feb 18</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Rachel Boyd</div>
+                <div class="contact-snippet">Sell · On the horizon</div>
+                <div class="contact-meta">Feb 20</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Tom Mitchell</div>
+                <div class="contact-snippet">Open house lead · Exploring</div>
+                <div class="contact-meta">Feb 19</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Sarah Kim</div>
+                <div class="contact-snippet">Referral · First-time buyer</div>
+                <div class="contact-meta">Feb 17</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-name">Dan Whitfield</div>
+                <div class="contact-snippet">Sphere · Someday maybe</div>
+                <div class="contact-meta">Feb 14</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Secondary Pane (Contact Detail: The Brief) -->
+    <div class="secondary-pane">
+
+        <!-- Header: Name + actions (centered, document-style) -->
+        <div class="detail-header">
+            <div class="detail-name">Marco O'Connell</div>
+            <div class="detail-subtitle">Met through golf group · February 21 · 541-111-2222</div>
+            <div class="detail-actions">
+                <div class="detail-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                    Call
+                </div>
+                <div class="detail-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Email
+                </div>
+                <div class="detail-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                    Ask Frank
+                </div>
+            </div>
+        </div>
+
+        <!-- The Brief -->
+        <div class="brief-narrative">
+            <p>
+                Marco wants to buy the <strong>coolest vacation home</strong> in the same community as his friends <span class="link">Larry Zonca</span> and <span class="link">Jimmy Savage</span>. Needs to be near golf, pool, and social amenities. He's a <strong>cash buyer</strong> in the <strong>$1M–$1.5M range</strong>, targeting early summer (June/July). Unrepresented — no agent yet. Very excited to move forward with listings and showings.
+            </p>
+        </div>
+
+        <div class="brief-badges">
+            <span class="badge badge-subtle">⛳ Golf · passionate</span>
+            <span class="badge badge-subtle">⛷️ Skiing · passionate</span>
+            <span class="badge badge-warm">Warm relationship</span>
+        </div>
+
+        <!-- Plan with Progress Ring -->
+        <div class="section-label">Plan</div>
+        <div class="plan-card">
+            <div class="plan-top">
+                <div class="plan-body">
+                    <div class="plan-title">Buy — Vacation Home</div>
+                    <div class="plan-badges">
+                        <span class="badge badge-accent">Buy</span>
+                        <span class="badge badge-imminent">Imminent</span>
+                        <span class="badge badge-success">Clear</span>
+                    </div>
+                    <div class="plan-desc">
+                        Wants the "coolest" vacation home near golf, pool, and social amenities. Same community as friends. Cash buyer, $1M–$1.5M, early summer timeline. Buying separately from Larry and Jimmy.
+                    </div>
+                </div>
+                <div class="progress-ring">
+                    <svg viewBox="0 0 50 50">
+                        <circle class="ring-bg" cx="25" cy="25" r="23" />
+                        <circle class="ring-fill" cx="25" cy="25" r="23" />
+                    </svg>
+                    <div class="ring-text">5/6</div>
+                </div>
+            </div>
+
+            <!-- Journey Steps — 2 columns on desktop -->
+            <div class="journey-steps">
+                <div class="journey-step">
+                    <div class="step-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    <div>
+                        <div class="step-label done">Asked about their plans</div>
+                        <div class="step-detail">Asked directly — they shared</div>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    <div>
+                        <div class="step-label done">Offered to help</div>
+                        <div class="step-detail">Listings tonight, showings tomorrow</div>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    <div>
+                        <div class="step-label done">Understand the plan</div>
+                        <div class="step-detail">Full understanding</div>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    <div>
+                        <div class="step-label done">Accepted our help</div>
+                        <div class="step-detail">Very excited — Status: Driving</div>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-icon done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    <div>
+                        <div class="step-label done">Identified next step</div>
+                        <div class="step-detail">Big tour Tue 3/3 (10am–4pm)</div>
+                    </div>
+                </div>
+                <div class="journey-step">
+                    <div class="step-icon pending"></div>
+                    <div>
+                        <div class="step-label pending">Confirmed next step</div>
+                        <div class="step-detail">Confirming Monday 3/2</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clear / Fuzzy -->
+            <div class="clarity-section">
+                <div class="clarity-group">
+                    <div class="clarity-label clear">Clear</div>
+                    <div class="clarity-chips">
+                        <span class="chip-clear">Cash buyer</span>
+                        <span class="chip-clear">Unrepresented</span>
+                        <span class="chip-clear">Early summer</span>
+                        <span class="chip-clear">Golf/resort preferred</span>
+                        <span class="chip-clear">$1M–$1.5M</span>
+                        <span class="chip-clear">Separate from friends</span>
+                        <span class="chip-clear">Favorites: 123 Street ($1.5M)</span>
+                    </div>
+                </div>
+                <div class="clarity-group">
+                    <div class="clarity-label fuzzy">Still Fuzzy</div>
+                    <div class="clarity-chips">
+                        <span class="chip-fuzzy">Specific unit preferences</span>
+                        <span class="chip-fuzzy">Other decision makers</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two columns: Actions + History -->
+        <div class="section-label">Actions & History</div>
+        <div class="two-col">
+            <!-- Left: Actions -->
+            <div class="col-card">
+                <div class="col-label">To Do (5)</div>
+                <div class="action-item">
+                    <div class="action-circle"></div>
+                    <div>
+                        <div class="action-text">Show properties to the group after golf</div>
+                        <div class="action-meta">Feb 23</div>
+                    </div>
+                </div>
+                <div class="action-item">
+                    <div class="action-circle"></div>
+                    <div>
+                        <div class="action-text">Confirm big tour with Marco for Tuesday</div>
+                        <div class="action-meta">Mar 2</div>
+                    </div>
+                </div>
+                <div class="action-item">
+                    <div class="action-circle"></div>
+                    <div>
+                        <div class="action-text">Big property tour: new search + revisit favorites</div>
+                        <div class="action-meta">Mar 3</div>
+                    </div>
+                </div>
+                <div class="action-item">
+                    <div class="action-circle"></div>
+                    <div>
+                        <div class="action-text">Reach out for High-End Property Outreach</div>
+                        <div class="action-meta">Campaign</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 14px;">
+                    <div class="col-label">Campaigns</div>
+                    <div>
+                        <span class="campaign-chip"><span class="campaign-dot"></span>Golf Outreach</span>
+                        <span class="campaign-chip"><span class="campaign-dot"></span>High-End Property</span>
+                    </div>
+                </div>
+
+                <div style="margin-top: 14px;">
+                    <div class="col-label">Projects</div>
+                    <div class="project-row">
+                        <div class="project-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                        </div>
+                        <div>
+                            <div class="project-name">Home Inspection — Flanders Street</div>
+                            <div class="project-count">2 active items</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: History + Relationships -->
+            <div class="col-card">
+                <div class="col-label">Recent Activity</div>
+                <div class="history-item">
+                    <div class="history-date"><div class="day">25</div><div class="month">Feb</div></div>
+                    <div class="history-body">
+                        <div class="history-type">Text</div>
+                        <div class="history-summary">Texted Marco about the Test Campaign.</div>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-date"><div class="day">24</div><div class="month">Feb</div></div>
+                    <div class="history-body">
+                        <div class="history-type">In Person</div>
+                        <div class="history-summary">Golfing went great. Ready for major property tour next week to revisit favorites and see new listings.</div>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-date"><div class="day">22</div><div class="month">Feb</div></div>
+                    <div class="history-body">
+                        <div class="history-type">In Person</div>
+                        <div class="history-summary">Golfed with Marco, Larry, and Jimmy. Showed properties on 22nd and 23rd. Scheduled big tour for Tuesday 3/3.</div>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-date"><div class="day">22</div><div class="month">Feb</div></div>
+                    <div class="history-body">
+                        <div class="history-type">Text</div>
+                        <div class="history-summary">Marco replied to ski swap invite. He's in — likes meeting for a beer beforehand.</div>
+                    </div>
+                </div>
+                <div class="history-item">
+                    <div class="history-date"><div class="day">22</div><div class="month">Feb</div></div>
+                    <div class="history-body">
+                        <div class="history-type">Text</div>
+                        <div class="history-summary">Sent invitation for MBSEF Skyliners Ski Swap.</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 14px;">
+                    <div class="col-label">Relationships</div>
+                    <div class="rel-row">
+                        <div class="rel-avatar">LZ</div>
+                        <div>
+                            <div class="rel-name">Larry Zonca</div>
+                            <div class="rel-type">Business Partner</div>
+                        </div>
+                    </div>
+                    <div class="rel-row">
+                        <div class="rel-avatar">JS</div>
+                        <div>
+                            <div class="rel-name">Jimmy Savage</div>
+                            <div class="rel-type">Business Partner</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-spacer"></div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hodo — Brand Concept & Direction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF8F5;
+            --surface: #F0EEEB;
+            --ink: #27221F;
+            --secondary: #6E5F57;
+            --tertiary: #9A8E86;
+            --accent: #4D8FAC;
+            --success: #4A7C59;
+            --warning: #D4A574;
+            --error: #C45D4E;
+            --divider: #E2DFDB;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lexend Deca', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: 80px 40px 60px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .hero-name {
+            font-size: 56px;
+            font-weight: 300;
+            letter-spacing: -2px;
+            margin-bottom: 12px;
+        }
+        .hero-japanese {
+            font-size: 20px;
+            font-weight: 300;
+            color: var(--tertiary);
+            margin-bottom: 24px;
+            letter-spacing: 4px;
+        }
+        .hero-meaning {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--secondary);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .hero-domain {
+            margin-top: 20px;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--accent);
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 40px 60px;
+        }
+        .section-wide {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 40px 60px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--tertiary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--divider);
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: 300;
+            margin-bottom: 16px;
+            color: var(--ink);
+        }
+        p strong { font-weight: 500; }
+
+        .highlight {
+            font-size: 18px;
+            font-weight: 300;
+            color: var(--secondary);
+            font-style: italic;
+            margin: 32px 0;
+            padding-left: 20px;
+            border-left: 2px solid var(--accent);
+            line-height: 1.8;
+        }
+
+        /* ===== SYSTEM TABLE ===== */
+        .system-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+        }
+        .system-table th {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--tertiary);
+            text-align: left;
+            padding: 8px 16px;
+            border-bottom: 1px solid var(--divider);
+        }
+        .system-table td {
+            font-size: 14px;
+            font-weight: 300;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--divider);
+        }
+        .system-table td:first-child {
+            font-weight: 500;
+            color: var(--ink);
+        }
+        .system-table td:nth-child(2) {
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        /* ===== SPEECH EXAMPLES ===== */
+        .speech {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 16px 0;
+        }
+        .speech-label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--tertiary);
+            margin-bottom: 8px;
+        }
+        .speech-line {
+            font-size: 14px;
+            font-weight: 300;
+            margin: 4px 0;
+            color: var(--ink);
+        }
+
+        /* ===== COLOR SWATCHES ===== */
+        .swatches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+        .swatch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 10px 16px;
+            min-width: 200px;
+        }
+        .swatch-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid var(--divider);
+        }
+        .swatch-name {
+            font-size: 13px;
+            font-weight: 400;
+        }
+        .swatch-hex {
+            font-size: 11px;
+            color: var(--tertiary);
+            font-weight: 300;
+        }
+        .swatch-japanese {
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        /* ===== PRINCIPLES ===== */
+        .principles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+        .principle {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 16px 20px;
+        }
+        .principle-name {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 2px;
+        }
+        .principle-kanji {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 300;
+            margin-bottom: 6px;
+        }
+        .principle-desc {
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        .type-comparison {
+            display: flex;
+            gap: 24px;
+            margin: 16px 0 24px;
+        }
+        .type-card {
+            flex: 1;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .type-role {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--tertiary);
+            margin-bottom: 12px;
+        }
+        .type-sample-lg {
+            font-size: 28px;
+            font-weight: 300;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .type-sample {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--secondary);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        .type-meta {
+            font-size: 11px;
+            color: var(--tertiary);
+            font-weight: 300;
+        }
+        .font-nunito {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        /* ===== FRANK ===== */
+        .frank-section {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 16px 0 24px;
+        }
+        .frank-header {
+            font-family: 'Nunito', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .frank-traits {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 24px;
+        }
+        .frank-trait {
+            font-size: 13px;
+            font-weight: 300;
+            padding: 4px 0;
+            color: var(--secondary);
+        }
+
+        /* ===== ANTI-REFERENCES ===== */
+        .anti-refs {
+            display: flex;
+            gap: 12px;
+            margin: 16px 0 24px;
+        }
+        .anti-ref {
+            flex: 1;
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px 18px;
+            text-align: center;
+        }
+        .anti-ref-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--error);
+            margin-bottom: 4px;
+        }
+        .anti-ref-why {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--tertiary);
+        }
+
+        /* ===== MOCKUP FRAMES ===== */
+        .mockup-label {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .mockup-desc {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            max-width: 760px;
+        }
+        .mockup-frame-desktop {
+            width: 100%;
+            height: 940px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .mockup-frame-mobile {
+            width: 100%;
+            height: 1400px;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        /* ===== MARKETING FLOW ===== */
+        .flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin: 24px 0;
+        }
+        .flow-step {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px 28px;
+            text-align: center;
+            max-width: 360px;
+            width: 100%;
+        }
+        .flow-step-main {
+            font-size: 15px;
+            font-weight: 400;
+        }
+        .flow-step-sub {
+            font-size: 12px;
+            font-weight: 300;
+            color: var(--secondary);
+            margin-top: 4px;
+        }
+        .flow-arrow {
+            font-size: 18px;
+            color: var(--tertiary);
+            padding: 6px 0;
+        }
+
+        /* ===== TARGET ===== */
+        .target-traits {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        .target-trait {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--secondary);
+        }
+
+        /* ===== DECISIONS ===== */
+        .decisions {
+            margin: 16px 0;
+        }
+        .decision {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--divider);
+        }
+        .decision:last-child { border-bottom: none; }
+        .decision-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink);
+            min-width: 160px;
+            flex-shrink: 0;
+        }
+        .decision-value {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--secondary);
+        }
+
+        /* ===== DIVIDERS ===== */
+        .section-divider {
+            max-width: 760px;
+            margin: 0 auto 60px;
+            border: none;
+            border-top: 1px solid var(--divider);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 60px 40px;
+            color: var(--tertiary);
+            font-size: 14px;
+            font-weight: 300;
+            font-style: italic;
+        }
+        .footer .frank-line {
+            font-family: 'Nunito', sans-serif;
+            margin-top: 4px;
+        }
+
+        /* ===== STATUS BAR ===== */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--ink);
+            color: rgba(255,255,255,0.7);
+            font-size: 11px;
+            font-weight: 300;
+            padding: 8px 24px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+        }
+        .status-bar strong { color: white; font-weight: 400; }
+
+        body { padding-top: 36px; }
+    </style>
+</head>
+<body>
+
+<div class="status-bar">
+    <span><strong>Hodo</strong> — Brand Concept & Visual Direction</span>
+    <span>For review: Scott, Prem, Garron · February 2026</span>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-name">Hodo</div>
+    <div class="hero-japanese">ほどほど · hodohodo</div>
+    <div class="hero-meaning">
+        A thousand-year-old Japanese concept meaning "just enough." Neither too much nor too little. The perfection of exactly enough.
+    </div>
+    <div class="hero-domain">hodohodo.ai</div>
+</div>
+
+<hr class="section-divider">
+
+<!-- THE SYSTEM -->
+<div class="section">
+    <div class="section-title">The System</div>
+
+    <table class="system-table">
+        <tr><th>Element</th><th>Name</th><th>Role</th></tr>
+        <tr><td>The application</td><td>Hodo</td><td>The platform — where everything lives</td></tr>
+        <tr><td>The AI</td><td>Frank</td><td>Your AI partner inside Hodo</td></tr>
+        <tr><td>The domain</td><td>hodohodo.ai</td><td>The address</td></tr>
+        <tr><td>The marketing hook</td><td>"Meet Frank"</td><td>The first experience</td></tr>
+        <tr><td>The tagline</td><td>"Built on Hodo"</td><td>The philosophy beneath everything</td></tr>
+    </table>
+
+    <div class="speech">
+        <div class="speech-label">How a broker talks about it</div>
+        <div class="speech-line">"I use Hodo."</div>
+        <div class="speech-line">"Frank reminded me to call Bob."</div>
+        <div class="speech-line">"Have you met Frank?"</div>
+    </div>
+
+    <div class="speech">
+        <div class="speech-label">How we introduce it</div>
+        <div class="speech-line">"This is Hodo. And inside, there's someone you should meet."</div>
+        <div class="speech-line">"Frank. Your AI partner for real estate. Built on Hodo."</div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- WHY HODO -->
+<div class="section">
+    <div class="section-title">Why Hodo</div>
+
+    <p>This application removes weight from a broker's day. It doesn't add more to do — it takes things off your plate. You talk, Frank listens, things get organized, nothing falls through the cracks. The stress of holding everything in your head dissolves.</p>
+
+    <p>The technology becomes invisible and you're just doing your work, naturally. No forms. No data entry. No feature overload. Just enough support that you can focus on what actually matters — the people in front of you.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- PHILOSOPHY -->
+<div class="section">
+    <div class="section-title">The Philosophy Beneath</div>
+
+    <div class="highlight">
+        "We're not making anything. We're not creating. We're uncovering what's already there."
+    </div>
+
+    <p>People already have plans. They're already moving — buying, selling, exploring, waiting, accelerating. This flow is a river. Hodo doesn't build the river or control its direction. It reveals it. It helps the broker see and engage with what's already happening in people's lives.</p>
+
+    <p>This is not a tool that pushes people through a funnel. It's a calm presence.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- VISUAL IDENTITY -->
+<div class="section">
+    <div class="section-title">Visual Identity</div>
+
+    <p style="margin-bottom: 24px;">Six Japanese design principles guide every visual decision.</p>
+
+    <div class="principles">
+        <div class="principle">
+            <div class="principle-name">Hodohodo</div>
+            <div class="principle-kanji">程々 — Just enough</div>
+            <div class="principle-desc">Don't over-design. Hold back. Leave room.</div>
+        </div>
+        <div class="principle">
+            <div class="principle-name">Wabi-Sabi</div>
+            <div class="principle-kanji">侘寂 — Beauty in imperfection</div>
+            <div class="principle-desc">Soft edges, muted colors, organic shapes.</div>
+        </div>
+        <div class="principle">
+            <div class="principle-name">Ma</div>
+            <div class="principle-kanji">間 — Negative space</div>
+            <div class="principle-desc">Generous whitespace, breathing room.</div>
+        </div>
+        <div class="principle">
+            <div class="principle-name">Kanso</div>
+            <div class="principle-kanji">簡素 — Simplicity</div>
+            <div class="principle-desc">Only what's needed, clear hierarchy.</div>
+        </div>
+        <div class="principle">
+            <div class="principle-name">Seijaku</div>
+            <div class="principle-kanji">静寂 — Tranquility</div>
+            <div class="principle-desc">Quiet palette, smooth transitions.</div>
+        </div>
+        <div class="principle">
+            <div class="principle-name">Shibui</div>
+            <div class="principle-kanji">渋い — Understated beauty</div>
+            <div class="principle-desc">Nothing flashy, sophisticated restraint.</div>
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- COLOR PALETTE -->
+<div class="section">
+    <div class="section-title">Color Palette — Paper & Indigo (和紙と藍)</div>
+
+    <div class="swatches">
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #FAF8F5;"></div>
+            <div>
+                <div class="swatch-name">Warm Paper</div>
+                <div class="swatch-hex">#FAF8F5 · Background</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #F0EEEB;"></div>
+            <div>
+                <div class="swatch-name">Light Stone</div>
+                <div class="swatch-hex">#F0EEEB · Surface</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #27221F;"></div>
+            <div>
+                <div class="swatch-name">Ink</div>
+                <div class="swatch-hex">#27221F · Primary text</div>
+                <div class="swatch-japanese">墨色 Sumi-iro</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #6E5F57;"></div>
+            <div>
+                <div class="swatch-name">Plain Mouse</div>
+                <div class="swatch-hex">#6E5F57 · Secondary text</div>
+                <div class="swatch-japanese">素鼠 Sunezumi</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #4D8FAC;"></div>
+            <div>
+                <div class="swatch-name">Sky Blue</div>
+                <div class="swatch-hex">#4D8FAC · Accent</div>
+                <div class="swatch-japanese">空色 Sora-iro</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #4A7C59;"></div>
+            <div>
+                <div class="swatch-name">Green Bamboo</div>
+                <div class="swatch-hex">#4A7C59 · Success</div>
+                <div class="swatch-japanese">青竹色 Aotake-iro</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #D4A574;"></div>
+            <div>
+                <div class="swatch-name">Warm Ochre</div>
+                <div class="swatch-hex">#D4A574 · Warning</div>
+            </div>
+        </div>
+        <div class="swatch">
+            <div class="swatch-circle" style="background: #C45D4E;"></div>
+            <div>
+                <div class="swatch-name">Soft Red</div>
+                <div class="swatch-hex">#C45D4E · Error</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- TYPOGRAPHY -->
+<div class="section">
+    <div class="section-title">Typography</div>
+
+    <p>Two fonts. The app speaks in one voice, Frank speaks in another.</p>
+
+    <div class="type-comparison">
+        <div class="type-card">
+            <div class="type-role">The App — Lexend Deca</div>
+            <div class="type-sample-lg">Just enough.</div>
+            <div class="type-sample">Clean, geometric, the system. Used for navigation, labels, user input, and all non-Frank interface elements. Light and regular weights.</div>
+            <div class="type-meta">Sans-serif · Geometric · Designed for readability</div>
+        </div>
+        <div class="type-card">
+            <div class="type-role">Frank — Nunito</div>
+            <div class="type-sample-lg font-nunito">Hey, I looked into that.</div>
+            <div class="type-sample font-nunito">Rounded, gentle, easygoing. Used for Frank's messages, his label, his header. The soft terminals give him a warm presence that's distinct from the system font. Frank feels like a person, not a feature.</div>
+            <div class="type-meta">Rounded sans-serif · Organic · Friendly without being childish</div>
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- FRANK -->
+<div class="section">
+    <div class="section-title">Frank's Identity</div>
+
+    <p>Frank is the person you work with inside Hodo. He's not a feature. He's not a chatbot. He's a partner.</p>
+
+    <div class="frank-section">
+        <div class="frank-header">Frank</div>
+        <div class="frank-traits">
+            <div class="frank-trait">Honest and direct (his name means it)</div>
+            <div class="frank-trait">Handles the work so you can focus on people</div>
+            <div class="frank-trait">Listens more than he talks</div>
+            <div class="frank-trait">Never pushy — responsive, not proactive</div>
+            <div class="frank-trait">Remembers what you told him</div>
+            <div class="frank-trait">Admits when he can't do something</div>
+        </div>
+    </div>
+
+    <p><strong>Frank's voice:</strong> Conversational, warm, grounded. Like talking to a sharp colleague who genuinely cares about your work. No corporate speak. No AI-sounding language. Just Frank.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ANTI-REFERENCES -->
+<div class="section">
+    <div class="section-title">What This is NOT</div>
+
+    <div class="anti-refs">
+        <div class="anti-ref">
+            <div class="anti-ref-name">Salesforce</div>
+            <div class="anti-ref-why">Cold, corporate, busy</div>
+        </div>
+        <div class="anti-ref">
+            <div class="anti-ref-name">Most CRMs</div>
+            <div class="anti-ref-why">Feature-dense, aggressive</div>
+        </div>
+        <div class="anti-ref">
+            <div class="anti-ref-name">Fintech</div>
+            <div class="anti-ref-why">Sharp, high-contrast, urgent</div>
+        </div>
+        <div class="anti-ref">
+            <div class="anti-ref-name">Startup-y</div>
+            <div class="anti-ref-why">Cutting-edge, tech-forward</div>
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- MARKETING -->
+<div class="section">
+    <div class="section-title">Marketing — "Meet Frank"</div>
+
+    <p>The marketing IS the product. When a prospective broker first encounters Hodo, they don't see a landing page with features and pricing. They meet Frank.</p>
+
+    <p>The sales experience IS the product experience. Frank sells by being Frank.</p>
+
+    <div class="flow">
+        <div class="flow-step">
+            <div class="flow-step-main">Prospect arrives at hodohodo.ai</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+            <div class="flow-step-main" style="font-family: 'Nunito', sans-serif; font-weight: 600;">"Meet Frank."</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+            <div class="flow-step-main">Frank introduces himself</div>
+            <div class="flow-step-sub">Asks about their practice. Listens. Reflects. Understands.</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+            <div class="flow-step-main">Prospect experiences the value</div>
+            <div class="flow-step-sub">This IS what the app does</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+            <div class="flow-step-main">"Try it yourself."</div>
+            <div class="flow-step-sub">Demo account with sample data. Real app, real tools, real Frank.</div>
+        </div>
+        <div class="flow-arrow">↓</div>
+        <div class="flow-step">
+            <div class="flow-step-main">Sign up / Subscribe</div>
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- TARGET -->
+<div class="section">
+    <div class="section-title">Target — New Agents</div>
+
+    <p>Our first market is new real estate agents who:</p>
+
+    <div class="target-traits">
+        <div class="target-trait">Feel overwhelmed and don't have a system</div>
+        <div class="target-trait">Want to build relationships, not cold-call</div>
+        <div class="target-trait">Need structure but don't want rigidity</div>
+        <div class="target-trait">Are looking for a mentor/partner, not a tool</div>
+    </div>
+
+    <p>From our interviews: they're <em>relieved</em> to find this. That's the emotion we're designing for.</p>
+</div>
+
+<hr class="section-divider">
+
+<!-- DESIGN DECISIONS -->
+<div class="section">
+    <div class="section-title">Design Decisions Made</div>
+
+    <div class="decisions">
+        <div class="decision">
+            <div class="decision-label">Contact detail layout</div>
+            <div class="decision-value">The Brief — narrative profile, not a field list. "Tell me about Marco."</div>
+        </div>
+        <div class="decision">
+            <div class="decision-label">Framework visualization</div>
+            <div class="decision-value">Progress Ring — quiet 5/6 ring in the plan card corner</div>
+        </div>
+        <div class="decision">
+            <div class="decision-label">Chat style</div>
+            <div class="decision-value">Frank's messages show "Frank" label above each bubble. Surface-colored background. Chat header is just "Frank" in Nunito — no icon, no decoration.</div>
+        </div>
+        <div class="decision">
+            <div class="decision-label">Color palette</div>
+            <div class="decision-value">Paper & Indigo — warm paper background, ink text, sky blue accent</div>
+        </div>
+        <div class="decision">
+            <div class="decision-label">Typography</div>
+            <div class="decision-value">Lexend Deca for the app. Nunito for Frank.</div>
+        </div>
+        <div class="decision">
+            <div class="decision-label">Layout</div>
+            <div class="decision-value">Prem's existing 4-pane desktop / 5-tab mobile structure, reskinned</div>
+        </div>
+    </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- MOCKUP: DESKTOP -->
+<div class="section-wide">
+    <div class="section-title">Visual Mockup — Desktop</div>
+    <div class="mockup-label">Contact Detail: The Brief + Progress Ring</div>
+    <div class="mockup-desc">Full 4-pane layout — nav rail, Frank chat, contact list, contact detail. Using Marco O'Connell's real data. This is the chosen design direction applied to Prem's existing layout structure.</div>
+    <iframe class="mockup-frame-desktop" src="mockups/mockup-contact-brief-desktop.html"></iframe>
+</div>
+
+<div style="height: 60px;"></div>
+
+<!-- MOCKUP: MOBILE -->
+<div class="section-wide">
+    <div class="section-title">Visual Mockup — Mobile</div>
+    <div class="mockup-label">Contact Brief: Framework Visualization Options</div>
+    <div class="mockup-desc">Three approaches to showing the coaching loop progression on mobile. Option 1 (Progress Ring) is the chosen direction. Same Brief narrative, same real data.</div>
+    <iframe class="mockup-frame-mobile" src="mockups/mockup-contact-brief-framework.html"></iframe>
+</div>
+
+<div style="height: 40px;"></div>
+
+<hr class="section-divider">
+
+<!-- FOOTER -->
+<div class="footer">
+    <div>Hodo. Just enough to keep you in flow.</div>
+    <div class="frank-line">Frank. Built on Hodo.</div>
+</div>
+
+</body>
+</html>
